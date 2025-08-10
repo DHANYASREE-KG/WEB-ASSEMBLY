@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fibonacci Calculator</title>
+</head>
+<body>
+  <h2>Fibonacci Calculator with Execution Time</h2>
+
+  <label for="numInput">Enter n (<= 40):</label>
+  <input type="number" id="numInput" value="30" min="0" max="40" />
+  <button id="calcBtn">Calculate</button>
+
+  <pre id="output"></pre>  <!-- This is where output will appear -->
+
+  <script>
+    // Recursive Fibonacci function
+    function fib(n) {
+      if (n <= 1) return n;
+      return fib(n - 1) + fib(n - 2);
+    }
+
+    // Button click event to calculate fibonacci and show output
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      const n = parseInt(document.getElementById('numInput').value);
+      if (isNaN(n) || n < 0 || n > 40) {
+        alert('Please enter a number between 0 and 40.');
+        return;
+      }
+
+      const outputEl = document.getElementById('output');
+      outputEl.textContent = 'Calculating...';
+
+      const start = performance.now();
+      const result = fib(n);
+      const end = performance.now();
+
+      outputEl.textContent = `Fibonacci(${n}) = ${result}\nExecution time: ${(end - start).toFixed(3)} ms`;
+    });
+  </script>
+</body>
+</html>
